@@ -1,0 +1,46 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="grid-container large">
+    <div class="grid-x grid-padding-x align-center">
+        <div class="cell small-12 medium-10 large-8">
+            <h3 class="text-center">Crear Nuevo Examen</h3>
+            <form method="POST" class="callout text-center">
+                {% csrf_token %}
+                <div class="grid-x grid-padding-x">
+                    <div class="cell medium-6">
+                        <label>Nombre del Examen
+                            {{ form.Nombre_Examen }}
+                        </label>
+                    </div>
+                    <div class="cell medium-6">
+                        <label>Categoría
+                            {{ form.Categoria }}
+                        </label>
+                    </div>
+                </div>
+                <div class="grid-x grid-padding-x">
+                    <div class="cell medium-6">
+                        <label>Duración (en minutos)
+                            {{ form.Duracion_Limite }}
+                        </label>
+                    </div>
+                </div>
+                <div class="grid-x grid-padding-x">
+                    <div class="cell medium-12">
+                        <label>Descripción
+                            {{ form.Descripcion }}
+                        </label>
+                    </div>
+                </div>
+                <div class="grid-x grid-padding-x align-center">
+                    <div class="cell">
+                        <button type="submit" class="button expanded success">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,47 @@
+<div class="top-bar">
+    <div class="top-bar-left">
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">EvalTest</li>
+        <li>
+          <a href="#">Administrar</a>
+          <ul class="menu vertical">
+            <li><a href="{% url 'Usuarios:Listcrud' %}">Usuarios</a></li>  
+            <li><a href="{% url 'Examenes:Crudcexa' %}">Examenes</a></li>
+            <li><a href="{% url 'Preguntas:crudPreg' %}">Preguntas</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Evaluar</a>
+          <ul class="menu vertical">
+            <li><a href="{% url 'Examenes:evaluar_usuario' %}">Presentar Examen</a></li>
+            <li><a href="{% url 'Examenes:resultados' %}">Mis Resultados</a></li>
+           </ul>
+          </li>
+
+        <li><a href="#">Consultas</a>
+            <ul class="menu vertical">
+                <li><a href="{% url 'Usuarios:Listau' %}">Usuarios</a></li>
+                <li><a href="{% url 'Examenes:Listexa' %}">Examenes</a></li>
+                <li><a href="#">Resultados</a></li>
+                <li><a href="#">Historicos</a></li>
+              </ul>
+         </li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        <li><input type="search" placeholder="Buscar"></li>
+        <li>
+            <!-- Aquí el botón de adicionar que cambia según la plantilla hija -->
+            {% if entidad == 'usuarios' %}
+                <a href="{% url 'Usuarios:Creausr' %}" class="button">Adicionar Usuario</a>
+            {% elif entidad == 'examenes' %}
+                <a href="{% url 'Examenes:CreaExa' %}" class="button">Adicionar Examen</a>
+            {% elif entidad == 'Preguntas' %}
+                <a href="{% url 'Preguntas:crear_pregunta' %}" class="button">Adicionar Examen</a>   
+            {% else %}
+                <a href="#" class="button">Seguridad</a>
+            {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>

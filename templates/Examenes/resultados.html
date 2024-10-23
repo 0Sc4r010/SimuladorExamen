@@ -1,0 +1,40 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+{% include "home/includes/header.html" %}
+<div class="grid-container">
+    <h1 class="text-center">Resultados de Evaluación</h1>
+    <div class="callout">
+        <p>Tu puntaje es: <strong>{{ puntaje|floatformat:1 }}%</strong></p>
+        <p>Total de preguntas: {{ total_preguntas }}</p>
+        <p>Total correctas: {{ total_correctas }}</p>
+    </div>
+    
+    <h2>Detalles por Examen</h2>
+    
+    {% for examen, preguntas in resultados_examenes.items %}
+        <h3>{{ examen }}</h3>  <!-- Muestra el nombre del examen -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Pregunta</th>
+                    <th>Tu Respuesta</th>
+                    <th>Respuesta Correcta</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pregunta in preguntas %}
+                <tr>
+                    <td>{{ pregunta.pregunta|safe }}</td>
+                    <td>{{ pregunta.respuesta_usuario }}</td>
+                    <td>{{ pregunta.respuesta_correcta }}</td>
+                    <td>{% if pregunta.es_correcta %} Correcta {% else %} Incorrecta {% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+</div>
+{% endblock content %}

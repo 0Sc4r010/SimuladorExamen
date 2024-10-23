@@ -1,0 +1,94 @@
+{% extends "home/base.html" %}  <!-- Heredar de base.html -->
+
+{% block title %}
+    Crear Pregunta y Opciones
+{% endblock %}
+
+{% block content %}
+{% include "home/includes/header.html" %}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<div class="grid-container">
+    <div class="grid-x grid-padding-x align-center">
+        <div class="cell medium-10 large-8">
+            <form method="POST" class="grid-x grid-padding-x">
+                {% csrf_token %}
+                <h2 class="cell text-center">Crear Nueva Pregunta</h2>
+                
+                <!-- Campos de la pregunta -->
+                <div class="cell medium-6">
+                    <label for="Nivel_Dificultad">{{ pregunta_form.Nivel_Dificultad.label }}:
+                        {{ pregunta_form.Nivel_Dificultad }}
+                    </label>
+                </div>
+
+                <div class="cell medium-6">
+                    <label for="ID_Examen">{{ pregunta_form.ID_Examen.label }}:
+                        {{ pregunta_form.ID_Examen }}
+                    </label>
+                </div>
+
+                <!-- Editor Quill para la pregunta -->
+                <div class="cell">
+                    <label for="Texto_Pregunta">{{ pregunta_form.Texto_Pregunta.label }}:</label>
+                    <div id="editor-container"></div>
+                    <input type="hidden" name="Texto_Pregunta" id="Texto_Pregunta">
+                </div>
+
+                {{ formset.management_form }}
+                <h2 class="cell text-center">Agregar Opciones</h2>
+                <!-- Opciones -->
+                <div class="grid-x grid-margin-x">
+                    {% for form in formset %}
+                        <div class="cell medium-6 opcion-form">
+                            <h3>Opción {{ forloop.counter }}</h3>
+
+                            <label for="Texto_Opción">{{ form.Texto_Opción.label }}:
+                                {{ form.Texto_Opción }}
+                            </label>
+
+                            <label for="Es_Correcta">{{ form.Es_Correcta.label }}:
+                                {{ form.Es_Correcta }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Botón para enviar el formulario -->
+                <div class="cell text-center">
+                    <button type="submit" class="button success large">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+  var quill = new Quill('#editor-container', {
+    theme: 'snow',
+    modules: {
+        toolbar: [
+            ['bold', 'italic', 'underline'],        // toggled buttons
+            ['link', 'image', 'blockquote', 'code-block'],
+            [{ list: 'ordered'}, { list: 'bullet' }],
+            [{ 'align': [] }],
+            ['clean']                                 // remove formatting button
+        ]
+    },
+    // Limitar las etiquetas permitidas
+    whitelist: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'img', 'br', 'blockquote', 'code']
+  
+  });
+
+  
+  document.querySelector('form').onsubmit = function() {
+    // Establecer el contenido del editor en el campo oculto
+    var content = document.querySelector('input[name="Texto_Pregunta"]');
+    content.value = quill.root.innerHTML; // Obtener el contenido HTML del editor
+    console.log(content.value); // Para verificar lo que se está enviando
+    content.value = quillContent.replace(/<p><br><\/p>/g, ""); // Elimina <p><br></p>
+  };
+</script>
+
+{% endblock %}

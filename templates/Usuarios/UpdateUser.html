@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% extends "home/base.html" %}
+{% load static %}
+{% block title%} Editar usuarios {% endblock title %}
+<body>
+    {% block content %}
+    {% include "home/includes/header.html" %}
+<div class="grid-container">
+    <div class=grid-x>
+        <h1 class="cell">Modificar Usuarios</h1>
+        <div class=grid-x>
+            <form class="grid-x grid-margin-x" method="POST">  
+                {% csrf_token %} 
+                <div class="large-6 cell">
+                    <label>Apellidos y nombres:
+                        {{ form.Nombre }} 
+                    </label>
+                  </div>
+                  <div class="large-6 cell">
+                    <label>Correo:
+                        {{ form.Correo }} 
+                    </label>
+                  </div>
+                  <div class="grid-x grid-padding-x">
+                    <div class="cell medium-6">
+                        <label>Contraseña
+                            {{ form.password1 }}
+                        </label>
+                        {% if form.password1.errors %}
+                            <p class="form-error is-visible">{{ form.password1.errors }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="cell medium-6">
+                        <label>Confirmar Contraseña
+                            {{ form.password2 }}
+                        </label>
+                        {% if form.password2.errors %}
+                            <p class="form-error is-visible">{{ form.password2.errors }}</p>
+                        {% endif %}
+                    </div>
+                  <div class="large-6 cell">
+                    <label>Documento de identidad:
+                        {{ form.identificacion }} 
+                    </label>
+                  </div>
+                  <div class="large-6 cell">
+                    <label>Telefono:
+                      <{{ form.telefono }} 
+                    </label>
+                  </div>
+                  <div class="large-6 cell">
+                    <label>Genero:
+                        {{ form.genero  }} 
+                    </label>
+                  </div>
+                  <div class="large-6 cell">
+                    <label>Roles:
+                        {{ form.Rol  }} 
+                    </label>
+                  </div>
+                  <div class="large-6 cell">
+                    <label>Areas evaluar:
+                        {{ form.Areas_evaluar }} 
+                    </label>
+                  </div>
+                  <div class="cell">
+                    <button type="submit" class="submit success button">Actualizar</button>
+                    <a href="{% url 'Usuarios:Listcrud' %}" class="button secondary">Cancelar</a>
+                  </div>
+
+              
+            </form>   
+        </div>
+    </div>
+</div>
+{% endblock content %}
+</body>
+{% include "home/includes/footer.html" %}
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% extends "home/base.html" %}
+{% load static %}
+<body>
+    {% block content %}
+    {% include "home/includes/header.html" %}
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <h3 class="cell">Lista de Usuarios Registrados</h3>
+            <div class="cell grid-x">
+                <!-- buscador -->
+                <form method="GET" class="grid-x grid-margin-x">  
+                    <div class="cell large-8">
+                        {% csrf_token %}  
+                        <input type="text" id="kword" name="kword" placeholder="Ingrese documento">
+                    </div>
+                    <div class="cell large-4 align-middle">
+                        <button class="submit success button">Buscar</button>   
+                    </div>
+                </form>   
+            </div>
+        </div >
+         <div class="cell" >
+            <table class="hover">
+                <thead>
+                  <tr>
+                    <th width="50">Identificacion</th>
+                    <th>NOMBRES </th>
+                    <th width="100">Telefono</th>
+                    <th width="100">Rol</th>
+                    <th width="50">Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for e in Usuarios %} 
+                  <tr>
+                    <td>{{ e.identificacion }}</td>
+                    <td>{{ e.Nombre }}</td>
+                    <td>{{ e.telefono }}</td>
+                    <td>{{ e.Rol }}</td>
+                    <td style="text-align: center;"><a class="button small" href="{% url 'Usuarios:Verusr' e.id %}">ver</a></td>
+                    
+                  </tr>
+                  {% empty %}
+                  <tr>
+                    <td colspan="5" class="text-center">No se encontraron usuarios.</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+                 <!-- Paginación con Foundation -->
+                {% if is_paginated %}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+                        <!-- Botón "anterior" -->
+                        {% if page_obj.has_previous %}
+                            <li class="pagination-previous">
+                                <a href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">Anterior</a>
+                            </li>
+                        {% else %}
+                            <li class="pagination-previous disabled">Anterior</li>
+                        {% endif %}
+
+                        <!-- Números de página -->
+                        {% for num in paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="current">{{ num }}</li>
+                            {% else %}
+                                <li><a href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- Botón "siguiente" -->
+                        {% if page_obj.has_next %}
+                            <li class="pagination-next">
+                                <a href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">Siguiente</a>
+                            </li>
+                        {% else %}
+                            <li class="pagination-next disabled">Siguiente</li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+
+
+        </div> 
+
+      </div>
+          
+    </div>       
+    {% include "home/includes/footer.html" %} 
+    {% endblock content %}
+</body>
+
+</html>

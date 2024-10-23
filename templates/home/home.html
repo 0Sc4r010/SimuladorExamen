@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}">
+    <title>EvalTest</title>
+</head>
+
+ {% include "home/common/header.html" %}
+
+<body>
+   <h1> EvalTest</h1>
+   <h3> Simulador para Exámenes del estado</h3>
+   <div class="grid-x" style="border: 1px solid green;"> 
+    <div class="cell callout success"> 
+        <h2 class="cell small-12 large-2">elemento 2 </h2>  
+        <p> elemento 1 </p>
+        <h2 class="cell small-12 large-2">elemento 3 </h2>
+    </div>
+   </div>
+</body>
+
+{% include "home/common/footer.html" %}
+</html>

@@ -1,0 +1,69 @@
+
+{% extends "home/base.html" %}
+{% load static %}
+{% block title %}  Simulador para Exámenes Oficiales {% endblock %}
+{% block content %}
+{% include "home/includes/header.html" %}
+
+     <!--- Inicio imagen de la portada --> 
+     <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
+      <div class="orbit-wrapper">
+        <div class="orbit-controls">
+          <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+          <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+        </div>
+        <ul class="orbit-container">
+          <li class="is-active orbit-slide">
+            <figure class="orbit-figure">
+              <img class="orbit-image" src="{% static  'img/01.jpg' %}" alt="Space">
+              <figcaption class="orbit-caption">Realizar exámenes prácticos en condiciones similares a las de los exámenes reales.</figcaption>
+            </figure>
+          </li>
+          <li class="orbit-slide">
+            <figure class="orbit-figure">
+              <img class="orbit-image"  src="{% static 'img/02.jpg' %}" alt="Space">
+              <figcaption class="orbit-caption">Familiarizarte con el formato y los tipos de preguntas que enfrentarás</figcaption>
+            </figure>
+          </li>
+          <li class="orbit-slide">
+            <figure class="orbit-figure">
+              <img class="orbit-image"  src="{% static 'img/03.jpg' %}" alt="Space">
+              <figcaption class="orbit-caption">Controlar tu tiempo de respuesta para mejorar tu rendimiento.</figcaption>
+            </figure>
+          </li>
+          <li class="orbit-slide">
+            <figure class="orbit-figure">
+              <img class="orbit-image"  src="{% static 'img/04.jpg' %}" alt="Space">
+              <figcaption class="orbit-caption">Identificar áreas de mejora para que puedas enfocar mejor tu estudio</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+      <nav class="orbit-bullets">
+        <button class="is-active" data-slide="0">
+          <span class="show-for-sr">First slide details.</span>
+          <span class="show-for-sr" data-slide-active-label>Current Slide</span>
+        </button>
+        <button data-slide="1"><span class="show-for-sr">Second slide details.</span></button>
+        <button data-slide="2"><span class="show-for-sr">Third slide details.</span></button>
+        <button data-slide="3"><span class="show-for-sr">Fourth slide details.</span></button>
+      </nav>
+    </div>
+     <!--- fin imagen de la portada --> 
+
+ <!--- inicio bloque de bienvenida --> 
+<div class="grid-x align-center">
+<h1 class="cell large-8" style="font-size:25px; text-align: center;"> Bienvenido al Simulador para Exámenes Oficiales  </h1>
+<div class="cell large-7">
+  <div class="callout success">
+    <p>En el Colegio OEA nos preocupamos por tu éxito académico, y sabemos que la preparación es la clave para alcanzar tus metas. Por eso hemos creado este simulador de exámenes, diseñado especialmente para que practiques y refuerces tus conocimientos antes de presentar tus evaluaciones oficiales..</p>
+    <a href="#">¡la práctica constante es el camino hacia el éxito! .</a>
+  </div>
+</div>
+
+</div>
+
+
+
+  <!--- fin bloque de bienvenida --> 
+{% endblock content %}

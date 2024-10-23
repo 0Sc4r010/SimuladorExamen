@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% extends "home/base.html" %}
+{% load static %}
+<body>
+    {% block content %}
+    {% include "home/includes/header.html" %}
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <h3 class="cell">Lista de Usuarios Registrados</h3>
+            <div class="cell medium-6">
+                <!-- Buscador -->
+                <form method="GET" action="{% url 'Usuarios:Listcrud' %}">
+                    <div class="input-group">
+                        <input type="text" name="search" class="input-group-field" placeholder="Buscar usuario...">
+                        <div class="input-group-button">
+                            <button type="submit" class="button">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="cell medium-6 text-right">
+                <a class="button primary" href="{% url 'Usuarios:Creausr' %}">Agregar Usuario</a>
+            </div>
+        </div>
+
+        <div class="cell">
+            <table class="hover unstriped">
+                <thead>
+                    <tr>
+                        <th>Identificación</th>
+                        <th>Nombres</th>
+                        <th>Teléfono</th>
+                        <th>Rol</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in Usuarios %} 
+                    <tr>
+                        <td>{{ e.identificacion }}</td>
+                        <td>{{ e.Nombre }}</td>
+                        <td>{{ e.telefono }}</td>
+                        <td>{{ e.Rol }}</td>
+                        <td class="text-center">
+                            <div class="grid-x grid-margin-x">
+                                <div class="cell shrink">
+                                    <a class="button success" href="{% url 'Usuarios:Updusr' e.id %}">Editar</a>
+                                </div>
+                                <div class="cell shrink">
+                                    <a class="button alert" href="{% url 'Usuarios:Delusr' e.id %}">Borrar</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No se encontraron usuarios.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Paginación con Foundation -->
+            {% if is_paginated %}
+            <nav aria-label="Page navigation" class="text-center">
+                <ul class="pagination" role="navigation" aria-label="Pagination">
+                    <!-- Botón "anterior" -->
+                    {% if page_obj.has_previous %}
+                        <li class="pagination-previous">
+                            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Anterior">Anterior</a>
+                        </li>
+                    {% else %}
+                        <li class="pagination-previous disabled">Anterior</li>
+                    {% endif %}
+
+                    <!-- Números de página -->
+                    {% for num in paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="current">{{ num }}</li>
+                        {% else %}
+                            <li><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Botón "siguiente" -->
+                    {% if page_obj.has_next %}
+                        <li class="pagination-next">
+                            <a href="?page={{ page_obj.next_page_number }}" aria-label="Siguiente">Siguiente</a>
+                        </li>
+                    {% else %}
+                        <li class="pagination-next disabled">Siguiente</li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div> 
+    </div>       
+
+    {% include "home/includes/footer.html" %} 
+    {% endblock content %}
+</body>

@@ -1,0 +1,95 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="cell small-12 text-center">
+            <h1>Detalles del Usuario: {{ usuarios.Nombre }}</h1>
+        </div>
+
+        <!-- Información adicional del usuario -->
+        <div class="cell small-12 text-center">
+            <h2>Resultados del Examen</h2>
+            <p>En esta sección puedes ver un resumen visual de los resultados obtenidos por el usuario en el examen. A continuación, encontrarás un gráfico de pie que muestra la proporción de respuestas correctas e incorrectas, seguido de un histograma que detalla la cantidad de cada tipo de respuesta.</p>
+        </div>
+
+        <!-- Gráfico de Pie con explicaciones -->
+        <div class="cell small-12 medium-6 text-center">
+            <div class="callout">
+                <h3>Gráfico de Pie: Respuestas Correctas e Incorrectas</h3>
+                <p>Este gráfico muestra la distribución de las respuestas correctas e incorrectas en el examen. El color verde representa las respuestas correctas y el rojo las incorrectas.</p>
+                <canvas id="graficoPie"></canvas>
+            </div>
+        </div>
+
+        <!-- Gráfico de Histograma con explicaciones -->
+        <div class="cell small-12 medium-6 text-center">
+            <div class="callout">
+                <h3>Histograma: Cantidad de Respuestas</h3>
+                <p>El histograma muestra cuántas respuestas correctas e incorrectas tuvo el usuario en el examen. Observa las barras para ver una comparación clara entre ambos tipos de respuestas.</p>
+                <canvas id="graficoHistograma"></canvas>
+            </div>
+        </div>
+
+        <!-- Botón de acción para descargar resultados -->
+        <div class="cell small-12 text-center">
+            <a class="button success" href="#">Descargar Resultados</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function ajustarTamañoCanvas() {
+        const pieCanvas = document.getElementById('graficoPie');
+        const histogramaCanvas = document.getElementById('graficoHistograma');
+        const width = Math.min(window.innerWidth * 0.8, 400);  // Ajusta el tamaño basado en el ancho de la ventana
+        const height = Math.min(window.innerHeight * 0.6, 400);  // Ajusta el tamaño basado en la altura
+
+        pieCanvas.width = width;
+        pieCanvas.height = height;
+        histogramaCanvas.width = width;
+        histogramaCanvas.height = height;
+    }
+
+    ajustarTamañoCanvas();  // Ajusta el tamaño cuando la página carga
+    window.addEventListener('resize', ajustarTamañoCanvas);  // Ajusta el tamaño al cambiar el tamaño de la ventana
+
+    // Gráfico de Pie
+    var ctxPie = document.getElementById('graficoPie').getContext('2d');
+    var graficoPie = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Correctas', 'Incorrectas'],
+            datasets: [{
+                data: [{{ correctas }}, {{ incorrectas }}],
+                backgroundColor: ['#4CAF50', '#F44336'],  // Colores verde y rojo
+            }]
+        }
+    });
+
+    // Gráfico de Histograma
+    var ctxHistograma = document.getElementById('graficoHistograma').getContext('2d');
+    var graficoHistograma = new Chart(ctxHistograma, {
+        type: 'bar',
+        data: {
+            labels: ['Correctas', 'Incorrectas'],
+            datasets: [{
+                label: 'Resultados',
+                data: [{{ correctas }}, {{ incorrectas }}],
+                backgroundColor: ['#4CAF50', '#F44336'],
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

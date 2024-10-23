@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends "home/base.html" %}
+{% load static %}
+{% block title%} Editar Registro de pruebas {% endblock title %}
+<body>
+    {% block content %}
+    {% include "home/includes/header.html" %}
+<div class="grid-container">
+    <div class=grid-x>
+        <h1 class="cell">Modificar Pruebas</h1>
+        <div class=grid-x>
+            <form class="grid-x grid-margin-x" method="POST">  
+                {% csrf_token %} 
+                   <div class="large-6 cell">
+                    <label>Nombre del Examen:
+                        {{ form.Nombre_Examen }} 
+                    </label>
+                  </div>
+                 
+                  <div class="large-6 cell">
+                    <label> Duración Límite:
+                        {{ form.Duracion_Limite}} 
+                    </label>
+                  </div>
+                  <div class="large-6 cell">
+                    <label>Categoría:
+                        {{ form.Categoria }} 
+                    </label>
+                  </div>
+                  <div class="cell">
+                    <label>Descripción :
+                        {{ form.Descripcion }} 
+                    </label>
+                  </div>
+                             
+                  <div class="cell">
+                   <button type="submit" class="submit success button">Actualizar</button>
+                  </div>
+        </form>   
+        </div>
+    </div>
+</div>
+{% endblock content %}
+</body>
+{% include "home/includes/footer.html" %}
+</html>
+
+

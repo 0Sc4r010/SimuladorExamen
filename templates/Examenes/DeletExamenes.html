@@ -1,0 +1,26 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}
+Eliminar Usuarios
+{% endblock title %}
+{% block content %}
+<div class="grid-container mt-5">
+    <div class="callout alert" data-closable>
+        <h4>Confirmación de eliminación</h4>
+        <p>Estás a punto de eliminar un examen <strong>{{ object.Nombre_Examen  }}</strong> </p>
+        <hr>
+        <p>Esta acción no se puede deshacer. ¿Estás seguro de que deseas eliminar este usuario?</p>
+
+        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="button alert">Eliminar</button>
+        <a href="{% url 'Examenes:Crudcexa' %}" class="button secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
